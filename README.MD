@@ -92,7 +92,7 @@ The API will be available at `http://localhost:{your_available_port}`.
 
 ### Send Friend Request
 
-- **Endpoint**: `POST /send-friend-request`
+- **Endpoint**: `POST /api/user/send-friend-request`
 - **Description**: Sends a friend request to another user.
 - **Request Body**: 
   ```json

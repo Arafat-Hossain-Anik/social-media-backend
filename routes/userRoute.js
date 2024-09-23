@@ -2,7 +2,8 @@ const router = require('express').Router();
 const User = require('../models/userModel');
 const cloudinary = require('../db/cloudinary_confiq')
 const fileUpload = require('express-fileupload');
-const usersData = require('../FakeData/usersData')
+const usersData = require('../FakeData/usersData');
+const checkUser = require('../middleware/checkUser');
 
 
 //express-fileupload middleware
@@ -21,7 +22,7 @@ router.post('/user-fake-data', async (req, res) => {
     res.json(data)
 })
 // Route to send a friend request
-router.post('/send-friend-request', async (req, res) => {
+router.post('/send-friend-request', checkUser, async (req, res) => {
     try {
         const { senderEmail, recipientEmail } = req.body;
         console.log(senderEmail, recipientEmail);
@@ -49,7 +50,7 @@ router.post('/send-friend-request', async (req, res) => {
     }
 });
 // Route to view all friend requests
-router.get('/friend-requests/:email', async (req, res) => {
+router.get('/friend-requests/:email', checkUser, async (req, res) => {
     try {
         const { email } = req.params;
         const user = await User.findOne({ email });
@@ -64,7 +65,7 @@ router.get('/friend-requests/:email', async (req, res) => {
     }
 });
 // Route to accept a friend request
-router.post('/accept-friend-request', async (req, res) => {
+router.post('/accept-friend-request', checkUser, async (req, res) => {
     try {
         const { recipientEmail, senderEmail } = req.body;
 
@@ -102,7 +103,7 @@ router.post('/accept-friend-request', async (req, res) => {
 });
 
 // Route to get a user's friendship graph
-router.get('/friendship-graph/:email', async (req, res) => {
+router.get('/friendship-graph/:email', checkUser, async (req, res) => {
     try {
         const { email } = req.params;
         const visited = new Set();
@@ -134,7 +135,7 @@ router.get('/friendship-graph/:email', async (req, res) => {
     }
 });
 // get all friends of a user
-router.get('/friends/:email', async (req, res) => {
+router.get('/friends/:email', checkUser, async (req, res) => {
     try {
         const { email } = req.params;
         const user = await User.findOne({ email });
@@ -161,7 +162,7 @@ const uploadImage = async (image) => {
 };
 
 // Route to update user profile
-router.put('/update-profile/:email', async (req, res) => {
+router.put('/update-profile/:email', checkUser, async (req, res) => {
     const { email } = req.params;
     const { userName } = req.body;
     const profilePicture = req.files.profilePicture;

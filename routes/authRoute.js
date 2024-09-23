@@ -2,6 +2,7 @@ const router = require('express').Router()
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const User = require('../models/userModel');
+const checkUser = require('../middleware/checkUser');
 
 
 //password validation function
@@ -79,7 +80,7 @@ router.post('/login', async (req, res) => {
 
 })
 // logout
-router.get('/logout', (req, res) => {
+router.get('/logout', checkUser, (req, res) => {
     console.log("logout api hitted");
     res.clearCookie('token', cookieOption);
     res.json({ message: 'Logged out successfully' });
