@@ -49,7 +49,7 @@ router.post('/send-friend-request', async (req, res) => {
     }
 });
 // Route to view all friend requests
-router.get('/all-friend-requests/:email', async (req, res) => {
+router.get('/friend-requests/:email', async (req, res) => {
     try {
         const { email } = req.params;
         const user = await User.findOne({ email });
@@ -134,7 +134,7 @@ router.get('/friendship-graph/:email', async (req, res) => {
     }
 });
 // get all friends of a user
-router.get('/all-friends/:email', async (req, res) => {
+router.get('/friends/:email', async (req, res) => {
     try {
         const { email } = req.params;
         const user = await User.findOne({ email });

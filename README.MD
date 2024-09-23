@@ -1,0 +1,152 @@
+# Social Media API
+
+This is a backend API for a social media platform developed using Node.js, Express, and MongoDB. It supports user authentication, friend requests, and user profile management, including image uploads to Cloudinary.
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Running the Project](#running-the-project)
+- [API Endpoints](#api-endpoints)
+  - [User Registration](#user-registration)
+  - [User Login](#user-login)
+  - [Update Profile](#update-profile)
+  - [Send Friend Request](#send-friend-request)
+  - [View Friend Requests](#view-friend-requests)
+  - [Accept Friend Request](#accept-friend-request)
+  - [Friendship Graph Visualization](#friendship-graph-visualization)
+  - [View All Friends](#view-all-friends)
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/Arafat-Hossain-Anik/social-media-backend
+   cd social-media-backend
+   ```
+
+2. Install the dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Create a `.env` file in the root directory and add your MongoDB connection string, JWT secret and Cloudinary credentials:
+
+   ```plaintext
+    PORT= your_available_port
+    DB_URL= your_mongodb_connection_string
+    JWT_SECRET= your_jwt_secret_code
+    CLOUDINARY_API_KEY= your_api_key
+    CLOUDINARY_API_SECRET= your_api_secret
+    CLOUDINARY_CLOUD_NAME= your_cloud_name
+   ```
+
+## Running the Project
+
+To start the server, run the following command:
+
+```bash
+npm start
+```
+
+The API will be available at `http://localhost:{your_available_port}`.
+
+## API Endpoints
+
+### User Registration
+
+- **Endpoint**: `POST /api/auth/signup`
+- **Description**: Registers a new user.
+- **Request Body**: 
+  ```json
+  {
+    "userName": "exampleUser",
+    "email": "user@example.com",
+    "password": "yourPassword",
+    "retypedPassword": "yourPassword"
+  }
+  ```
+
+### User Login
+
+- **Endpoint**: `POST /api/auth/login`
+- **Description**: Authenticates a user and returns a token in cookies.
+- **Request Body**: 
+  ```json
+  {
+    "email": "user@example.com",
+    "password": "yourPassword"
+  }
+  ```
+
+### Update Profile
+
+- **Endpoint**: `PUT /api/user/update-profile/:email`
+- **Description**: Updates the user's profile and uploads profile and cover pictures to Cloudinary. Here a single picture can be changed at time.
+- **Request Body**: 
+  - **Form Data**: 
+    - `userName`: string
+    - `profilePicture`: file
+    - `coverPicture`: file
+
+### Send Friend Request
+
+- **Endpoint**: `POST /send-friend-request`
+- **Description**: Sends a friend request to another user.
+- **Request Body**: 
+  ```json
+  {
+    "recipientEmail": "friend@example.com"
+  }
+  ```
+
+### View Friend Requests
+
+- **Endpoint**: `GET /api/user/friend-requests/:email`
+- **Description**: Retrieves all friend requests received by the user.
+- **Response**: 
+  ```json
+  {
+    "friendRequests": ["sender@example.com", ...]
+  }
+  ```
+
+### Accept Friend Request
+
+- **Endpoint**: `POST /api/user/accept-friend-request`
+- **Description**: Accepts a friend request and updates both users' friend lists.
+- **Request Body**: 
+  ```json
+  {
+    "recipientEmail":"receiver@example.com",
+    "senderEmail": "sender@example.com"
+  }
+  ```
+
+### Friendship Graph Visualization
+
+- **Endpoint**: `GET /api/user/friendship-graph/:email`
+- **Description**: Retrieves the user's friendship graph showcasing their connections.
+- **Response**: 
+  ```json
+  {
+    "friendshipGraph": { "person1":["person2@example.com", ...],
+    "person2":["person1@example.com", ...]
+    }
+  }
+  ```
+### View All Friends
+
+- **Endpoint**: `GET /api/user/friends/:email`
+- **Description**: Retrieves all friends of a user.
+- **Response**: 
+  ```json
+  {
+    "friends": ["friend1@example.com", ...]
+  }
+  ```
+# Special Note
+
+> ## Disclaimer  
+> All API endpoints can only be accessed after successful login. Please ensure you authenticate your requests with the provided `JWT token`. 
