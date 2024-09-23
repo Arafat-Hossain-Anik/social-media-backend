@@ -4,8 +4,6 @@ const cookieParser = require('cookie-parser')
 const connection = require('./db/db')
 const userRoute = require('./routes/userRoute')
 const authRoute = require('./routes/authRoute')
-const User = require('./models/userModel');
-const usersData = require('./FakeData/usersData')
 
 require('dotenv').config()
 const port = process.env.PORT
@@ -24,18 +22,11 @@ app.use(cors(
 ))
 // connection string 
 connection();
-//api
+
+//api routes
 app.use('/api/user', userRoute)
 app.use('/api/auth', authRoute)
 
-app.post('/', async (req, res) => {
-    const data = await User.insertMany(usersData);
-    res.json(data)
-})
-app.get('/', async (req, res) => {
-    const users = await User.find({})
-    res.json(users)
-})
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
