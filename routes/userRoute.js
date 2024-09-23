@@ -12,12 +12,12 @@ router.use(fileUpload({
     tempFileDir: '/tmp/'
 }));
 //get all users
-router.get('/users', async (req, res) => {
+router.get('/', async (req, res) => {
     const users = await User.find({})
     res.json(users)
 })
 // upload the fake data
-router.post('/user-fake-data', async (req, res) => {
+router.post('/upload-fake-data', async (req, res) => {
     const data = await User.insertMany(usersData);
     res.json(data)
 })

@@ -15,6 +15,8 @@ This is a backend API for a social media platform developed using Node.js, Expre
   - [Accept Friend Request](#accept-friend-request)
   - [Friendship Graph Visualization](#friendship-graph-visualization)
   - [View All Friends](#view-all-friends)
+- [Faced Problems](#faced-problems)
+- [Special Note](#special-note)
 
 ## Installation
 
@@ -146,7 +148,28 @@ The API will be available at `http://localhost:{your_available_port}`.
     "friends": ["friend1@example.com", ...]
   }
   ```
+### Faced Problems
+
+During the development process, I encountered a few challenges that required troubleshooting:
+
+1. **Image Uploading Issue**:  
+   Initially, I had trouble accessing the image from Postman. After some research, I implemented `express-fileupload` to temporarily store the uploaded image in a temporary folder. Once the image was successfully caught, I used Cloudinary to store it permanently.
+
+2. **Handling JWT Authentication**:  
+   I faced some difficulties ensuring that JWT tokens were correctly set in cookies and accessible during API requests. After seeking online help, I was able to resolve the issue and ensure secure handling of tokens for authentication.
+
+3. **Postman Testing**:  
+   While testing API requests in Postman, some endpoints initially failed to work due to missing or incorrect headers. After debugging, I ensured that all requests included the necessary authentication headers, particularly the JWT token for secure access.
+
+These problems were eventually resolved and are documented in the code for reference.
+
 # Special Note
 
-> ## Disclaimer  
-> All API endpoints can only be accessed after successful login. Please ensure you authenticate your requests with the provided `JWT token`. 
+- **Live Backend Link**: [https://social-media-backend-lw44.onrender.com](https://social-media-backend-lw44.onrender.com)
+- **Sample Login Credentials**:  
+  - E-Mail: anik@gmail.com  
+  - Password: Abcd@1234
+- All API endpoints require successful login. Please ensure to authenticate your requests using the provided **JWT token**.
+- Two API endpoints are open for viewing purposes:
+  - **GET /api/user**: Retrieve the list of all users.
+  - **POST /api/user/fake-data**: Submit the given fake data to the database.
