@@ -161,7 +161,7 @@ During the development process, I encountered a few challenges that required tro
 3. **Postman Testing**:  
    While testing API requests in Postman, some endpoints initially failed to work due to missing or incorrect headers. After debugging, I ensured that all requests included the necessary authentication headers, particularly the JWT token for secure access.
 
-These problems were eventually resolved and are documented in the code for reference.
+These problems were eventually resolved.
 
 # Special Note
 
